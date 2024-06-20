@@ -1,6 +1,7 @@
 package com.example.cargame;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
@@ -13,7 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.cargame.Logic.GameManager;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
+import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     private FloatingActionButton main_BTN_arrow_left;
@@ -49,22 +50,37 @@ public class MainActivity extends AppCompatActivity {
         findViews();
         start();
         gameManager = new GameManager(main_IMG_hearts.length);
+        gameManager.initMat();
         initViews();
     }
 
     private void initViews(){
         main_BTN_arrow_right.setOnClickListener(view -> moveCarRight());
         main_BTN_arrow_left.setOnClickListener(view -> moveCarLeft());
+        gameManager.updateStones();
         collision();
-
+        refreshUI();
     }
 
     private void refreshUI(){
-
-    }
-
-    private void moveStones(){
-
+        try
+        {
+            Thread.sleep(1000);
+        }
+        catch(InterruptedException ex)
+        {
+            Thread.currentThread().interrupt();
+        }
+        for(int i = 0; i < stonesMat.length; i++){
+            for(int j = 0; i < stonesMat[i].length; j++){
+                if(gameManager.getStoneMat()[i][j] == 1){
+                    stonesMat[i][j].setVisibility(View.VISIBLE);
+                }
+                else{
+                    stonesMat[i][j].setVisibility(View.INVISIBLE);
+                }
+            }
+        }
     }
 
     private void moveCarLeft() {
@@ -72,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
             main_IMG_car_center.setVisibility(View.INVISIBLE);
             main_IMG_car_left.setVisibility(View.VISIBLE);
         }
-        else if(main_IMG_car_right.getVisibility() == View.VISIBLE){
+        else if(main_IMG_car_right.getVisibility() == View.VISIBLE) {
             main_IMG_car_center.setVisibility(View.VISIBLE);
             main_IMG_car_right.setVisibility(View.INVISIBLE);
         }
@@ -93,6 +109,13 @@ public class MainActivity extends AppCompatActivity {
         if(main_IMG_car_center.getVisibility() == View.VISIBLE && main_IMG_stone_center4.getVisibility() == View.VISIBLE){
             gameManager.checkCollision(true);
         }
+        else if(main_IMG_car_left.getVisibility() == View.VISIBLE && main_IMG_stone_left4.getVisibility() == View.VISIBLE){
+            gameManager.checkCollision(true);
+        }
+        else if(main_IMG_car_right.getVisibility() == View.VISIBLE && main_IMG_stone_right4.getVisibility() == View.VISIBLE){
+            gameManager.checkCollision(true);
+        }
+        refreshUI();
     }
 
     private void findViews(){
