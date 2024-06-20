@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private AppCompatImageView main_IMG_car_left;
     private AppCompatImageView main_IMG_car_center;
     private AppCompatImageView main_IMG_car_right;
+    private AppCompatImageView[][] stonesMat;
     private AppCompatImageView main_IMG_stone_left1;
     private AppCompatImageView main_IMG_stone_left2;
     private AppCompatImageView main_IMG_stone_left3;
@@ -55,6 +56,15 @@ public class MainActivity extends AppCompatActivity {
         main_BTN_arrow_right.setOnClickListener(view -> moveCarRight());
         main_BTN_arrow_left.setOnClickListener(view -> moveCarLeft());
         collision();
+
+    }
+
+    private void refreshUI(){
+
+    }
+
+    private void moveStones(){
+
     }
 
     private void moveCarLeft() {
@@ -86,11 +96,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void findViews(){
-        main_IMG_hearts = new AppCompatImageView[]{
-                findViewById(R.id.main_IMG_heart1),
-                findViewById(R.id.main_IMG_heart2),
-                findViewById(R.id.main_IMG_heart3)
-        };
+        main_IMG_hearts = new AppCompatImageView[]{findViewById(R.id.main_IMG_heart1), findViewById(R.id.main_IMG_heart2), findViewById(R.id.main_IMG_heart3)};
+        stonesMat = new AppCompatImageView[][]{{main_IMG_stone_left1, main_IMG_stone_center1, main_IMG_stone_right1},
+                                               {main_IMG_stone_left2, main_IMG_stone_center2, main_IMG_stone_right2},
+                                               {main_IMG_stone_left3, main_IMG_stone_center3, main_IMG_stone_right3},
+                                               {main_IMG_stone_left4, main_IMG_stone_center4, main_IMG_stone_right4}};
         main_IMG_car_left = findViewById(R.id.main_IMG_car_left);
         main_IMG_car_right = findViewById(R.id.main_IMG_car_right);
         main_IMG_car_center = findViewById(R.id.main_IMG_car_center);
