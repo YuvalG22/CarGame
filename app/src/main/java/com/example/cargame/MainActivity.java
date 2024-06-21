@@ -1,6 +1,7 @@
 package com.example.cargame;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 
@@ -16,7 +17,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.Random;
 public class MainActivity extends AppCompatActivity {
-
+    private static final long DELAY = 1500L;
     private FloatingActionButton main_BTN_arrow_left;
     private FloatingActionButton main_BTN_arrow_right;
     private AppCompatImageView main_IMG_car_left;
@@ -37,6 +38,16 @@ public class MainActivity extends AppCompatActivity {
     private AppCompatImageView main_IMG_stone_center4;
     private AppCompatImageView[] main_IMG_hearts;
     private GameManager gameManager;
+    final Handler handler = new Handler();
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            handler.postDelayed(this, DELAY);
+            gameManager.updateStones();
+            checkCollisions();
+            refreshUI();
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,31 +59,27 @@ public class MainActivity extends AppCompatActivity {
           //  return insets;
         //});
         findViews();
-        start();
         gameManager = new GameManager(main_IMG_hearts.length);
-        gameManager.initMat();
         initViews();
+        handler.postDelayed(runnable, 0);
     }
 
     private void initViews(){
+        main_IMG_car_left.setVisibility(View.INVISIBLE);
+        main_IMG_car_center.setVisibility(View.VISIBLE);
+        main_IMG_car_right.setVisibility(View.INVISIBLE);
+        for(int i = 0; i < stonesMat.length; i++){
+            for(int j = 0; j < stonesMat[i].length; j++) {
+                stonesMat[i][j].setVisibility(View.INVISIBLE);
+            }
+        }
         main_BTN_arrow_right.setOnClickListener(view -> moveCarRight());
         main_BTN_arrow_left.setOnClickListener(view -> moveCarLeft());
-        gameManager.updateStones();
-        collision();
-        refreshUI();
     }
 
     private void refreshUI(){
-        try
-        {
-            Thread.sleep(1000);
-        }
-        catch(InterruptedException ex)
-        {
-            Thread.currentThread().interrupt();
-        }
         for(int i = 0; i < stonesMat.length; i++){
-            for(int j = 0; i < stonesMat[i].length; j++){
+            for(int j = 0; j < stonesMat[i].length; j++){
                 if(gameManager.getStoneMat()[i][j] == 1){
                     stonesMat[i][j].setVisibility(View.VISIBLE);
                 }
@@ -105,59 +112,29 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void collision(){
-        if(main_IMG_car_center.getVisibility() == View.VISIBLE && main_IMG_stone_center4.getVisibility() == View.VISIBLE){
+    private void checkCollisions(){
+        if(main_IMG_car_center.getVisibility() == View.VISIBLE && gameManager.getStoneMat()[4][1] == 1){
             gameManager.checkCollision(true);
         }
-        else if(main_IMG_car_left.getVisibility() == View.VISIBLE && main_IMG_stone_left4.getVisibility() == View.VISIBLE){
+        else if(main_IMG_car_left.getVisibility() == View.VISIBLE && gameManager.getStoneMat()[4][0] == 1){
             gameManager.checkCollision(true);
         }
-        else if(main_IMG_car_right.getVisibility() == View.VISIBLE && main_IMG_stone_right4.getVisibility() == View.VISIBLE){
+        else if(main_IMG_car_right.getVisibility() == View.VISIBLE && gameManager.getStoneMat()[4][2] == 1){
             gameManager.checkCollision(true);
         }
-        refreshUI();
     }
 
     private void findViews(){
         main_IMG_hearts = new AppCompatImageView[]{findViewById(R.id.main_IMG_heart1), findViewById(R.id.main_IMG_heart2), findViewById(R.id.main_IMG_heart3)};
-        stonesMat = new AppCompatImageView[][]{{main_IMG_stone_left1, main_IMG_stone_center1, main_IMG_stone_right1},
-                                               {main_IMG_stone_left2, main_IMG_stone_center2, main_IMG_stone_right2},
-                                               {main_IMG_stone_left3, main_IMG_stone_center3, main_IMG_stone_right3},
-                                               {main_IMG_stone_left4, main_IMG_stone_center4, main_IMG_stone_right4}};
-        main_IMG_car_left = findViewById(R.id.main_IMG_car_left);
-        main_IMG_car_right = findViewById(R.id.main_IMG_car_right);
-        main_IMG_car_center = findViewById(R.id.main_IMG_car_center);
-        main_BTN_arrow_left = findViewById(R.id.main_BTN_arrow_left);
+        stonesMat = new AppCompatImageView[][]{{findViewById(R.id.main_IMG_stone_left1), findViewById(R.id.main_IMG_stone_center1), findViewById(R.id.main_IMG_stone_right1)},
+                                               {findViewById(R.id.main_IMG_stone_left2), findViewById(R.id.main_IMG_stone_center2), findViewById(R.id.main_IMG_stone_right2)},
+                                               {findViewById(R.id.main_IMG_stone_left3), findViewById(R.id.main_IMG_stone_center3), findViewById(R.id.main_IMG_stone_right3)},
+                                               {findViewById(R.id.main_IMG_stone_left4), findViewById(R.id.main_IMG_stone_center4), findViewById(R.id.main_IMG_stone_right4)},
+                                               {findViewById(R.id.main_IMG_stone_left5), findViewById(R.id.main_IMG_stone_center5), findViewById(R.id.main_IMG_stone_right5)}};
         main_BTN_arrow_right = findViewById(R.id.main_BTN_arrow_right);
-        main_IMG_stone_left1 = findViewById(R.id.main_IMG_stone_left1);
-        main_IMG_stone_left2 = findViewById(R.id.main_IMG_stone_left2);
-        main_IMG_stone_left3 = findViewById(R.id.main_IMG_stone_left3);
-        main_IMG_stone_left4 = findViewById(R.id.main_IMG_stone_left4);
-        main_IMG_stone_right1 = findViewById(R.id.main_IMG_stone_right1);
-        main_IMG_stone_right2 = findViewById(R.id.main_IMG_stone_right2);
-        main_IMG_stone_right3 = findViewById(R.id.main_IMG_stone_right3);
-        main_IMG_stone_right4 = findViewById(R.id.main_IMG_stone_right4);
-        main_IMG_stone_center1 = findViewById(R.id.main_IMG_stone_center1);
-        main_IMG_stone_center2 = findViewById(R.id.main_IMG_stone_center2);
-        main_IMG_stone_center3 = findViewById(R.id.main_IMG_stone_center3);
-        main_IMG_stone_center4 = findViewById(R.id.main_IMG_stone_center4);
+        main_BTN_arrow_left = findViewById(R.id.main_BTN_arrow_left);
+        main_IMG_car_center = findViewById(R.id.main_IMG_car_center);
+        main_IMG_car_right = findViewById(R.id.main_IMG_car_right);
+        main_IMG_car_left = findViewById(R.id.main_IMG_car_left);
     }
-
-    private void start(){
-        main_IMG_car_left.setVisibility(View.INVISIBLE);
-        main_IMG_car_right.setVisibility(View.INVISIBLE);
-        main_IMG_stone_left1.setVisibility(View.INVISIBLE);
-        main_IMG_stone_left2.setVisibility(View.INVISIBLE);
-        main_IMG_stone_left3.setVisibility(View.INVISIBLE);
-        main_IMG_stone_left4.setVisibility(View.INVISIBLE);
-        main_IMG_stone_right1.setVisibility(View.INVISIBLE);
-        main_IMG_stone_right2.setVisibility(View.INVISIBLE);
-        main_IMG_stone_right3.setVisibility(View.INVISIBLE);
-        main_IMG_stone_right4.setVisibility(View.INVISIBLE);
-        main_IMG_stone_center1.setVisibility(View.INVISIBLE);
-        main_IMG_stone_center2.setVisibility(View.INVISIBLE);
-        main_IMG_stone_center3.setVisibility(View.INVISIBLE);
-        main_IMG_stone_center4.setVisibility(View.INVISIBLE);
-    }
-
 }

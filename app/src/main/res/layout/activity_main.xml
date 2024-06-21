@@ -43,7 +43,7 @@
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
-        android:layout_height="400dp"
+        android:layout_height="450dp"
         android:orientation="vertical"
         android:layout_alignParentStart="true"
         android:layout_marginStart="16dp"
@@ -81,11 +81,19 @@
             android:layout_weight="1"
             app:srcCompat="@drawable/stone" />
 
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/main_IMG_stone_left5"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/stone" />
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
-        android:layout_height="400dp"
+        android:layout_height="450dp"
         android:orientation="vertical"
         android:layout_marginStart="140dp"
         android:layout_marginTop="@dimen/margin_top_stone">
@@ -122,11 +130,19 @@
             android:layout_weight="1"
             app:srcCompat="@drawable/stone" />
 
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/main_IMG_stone_center5"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/stone" />
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
-        android:layout_height="400dp"
+        android:layout_height="450dp"
         android:orientation="vertical"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="16dp"
@@ -158,6 +174,14 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/main_IMG_stone_right4"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/stone" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/main_IMG_stone_right5"
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:layout_centerInParent="true"
