@@ -18,7 +18,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.Random;
 public class MainActivity extends AppCompatActivity {
-    private static final long DELAY = 1500L;
+    private static final long DELAY = 1000L;
     private FloatingActionButton main_BTN_arrow_left;
     private FloatingActionButton main_BTN_arrow_right;
     private AppCompatImageView main_IMG_car_left;
@@ -44,26 +44,24 @@ public class MainActivity extends AppCompatActivity {
     private GameManager gameManager;
     private ToastVibrate toastVibrate;
     final Handler handler = new Handler();
+    private boolean isRunning = true;
     Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            handler.postDelayed(this, DELAY);
-            gameManager.updateStones();
-            checkCollisions();
-            refreshUI();
+            if(isRunning) {
+                handler.postDelayed(this, DELAY);
+                gameManager.updateStones();
+                checkCollisions();
+                refreshUI();
+            }
         }
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-      //  ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-          //  Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-           // v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-          //  return insets;
-        //});
         findViews();
+        toastVibrate = new ToastVibrate(this);
         gameManager = new GameManager(main_IMG_hearts.length);
         initViews();
         handler.postDelayed(runnable, 0);
@@ -132,20 +130,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkCollisions(){
-        if(main_IMG_car_center.getVisibility() == View.VISIBLE && stonesMat[4][1].getVisibility() == View.VISIBLE){
-            gameManager.checkCollision(true);
-            //toastVibrate.toastAndVibrate("Collision");
+        boolean collisionDetected = false;
+        if(main_IMG_car_center.getVisibility() == View.VISIBLE && stonesMat[3][1].getVisibility() == View.VISIBLE){
+            collisionDetected = true;
+            toastVibrate.toastAndVibrate("Collision!");
         }
-        else if(main_IMG_car_left.getVisibility() == View.VISIBLE && stonesMat[4][0].getVisibility() == View.VISIBLE){
-            gameManager.checkCollision(true);
-            gameManager.checkCollision(true);
-            //toastVibrate.toastAndVibrate("Collision");
+        else if(main_IMG_car_left.getVisibility() == View.VISIBLE && stonesMat[3][0].getVisibility() == View.VISIBLE){
+            collisionDetected = true;
+            toastVibrate.toastAndVibrate("Collision!");
         }
-        else if(main_IMG_car_right.getVisibility() == View.VISIBLE && stonesMat[4][2].getVisibility() == View.VISIBLE){
-            gameManager.checkCollision(true);
-            gameManager.checkCollision(true);
-            //toastVibrate.toastAndVibrate("Collision");
+        else if(main_IMG_car_right.getVisibility() == View.VISIBLE && stonesMat[3][2].getVisibility() == View.VISIBLE){
+            collisionDetected = true;
+            toastVibrate.toastAndVibrate("Collision!");
         }
+        if(collisionDetected){
+            gameManager.checkCollision(collisionDetected);
+        }
+        if(gameManager.getCollisions() != 0){
+            main_IMG_hearts[main_IMG_hearts.length - gameManager.getCollisions()].setVisibility(View.INVISIBLE);
+        }
+        if (gameManager.getCollisions() == main_IMG_hearts.length) {
+            gameOver();
+        }
+    }
+
+    private void gameOver(){
+        isRunning = false;
+        handler.removeCallbacks(runnable);
     }
 
     private void findViews(){
