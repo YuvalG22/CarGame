@@ -10,7 +10,7 @@ public class GameManager {
                                             {0,0,0},
                                             {0,0,0},
                                             {0,0,0}};
-private Random random;
+    private Random random;
     public GameManager(int lifeCount) {
         this.lifeCount = lifeCount;
     }

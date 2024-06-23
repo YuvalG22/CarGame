@@ -1,5 +1,6 @@
 package com.example.cargame;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -28,16 +29,20 @@ public class MainActivity extends AppCompatActivity {
     private AppCompatImageView main_IMG_stone_left2;
     private AppCompatImageView main_IMG_stone_left3;
     private AppCompatImageView main_IMG_stone_left4;
+    private AppCompatImageView main_IMG_stone_left5;
     private AppCompatImageView main_IMG_stone_right1;
     private AppCompatImageView main_IMG_stone_right2;
     private AppCompatImageView main_IMG_stone_right3;
     private AppCompatImageView main_IMG_stone_right4;
+    private AppCompatImageView main_IMG_stone_right5;
     private AppCompatImageView main_IMG_stone_center1;
     private AppCompatImageView main_IMG_stone_center2;
     private AppCompatImageView main_IMG_stone_center3;
     private AppCompatImageView main_IMG_stone_center4;
+    private AppCompatImageView main_IMG_stone_center5;
     private AppCompatImageView[] main_IMG_hearts;
     private GameManager gameManager;
+    private ToastVibrate toastVibrate;
     final Handler handler = new Handler();
     Runnable runnable = new Runnable() {
         @Override
@@ -78,16 +83,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void refreshUI(){
-        for(int i = 0; i < stonesMat.length; i++){
-            for(int j = 0; j < stonesMat[i].length; j++){
-                if(gameManager.getStoneMat()[i][j] == 1){
-                    stonesMat[i][j].setVisibility(View.VISIBLE);
-                }
-                else{
-                    stonesMat[i][j].setVisibility(View.INVISIBLE);
+        if(gameManager.isGameLost()){
+            changeActivity("😭 GAME OVER");
+        }
+        else {
+            for (int i = 0; i < stonesMat.length; i++) {
+                for (int j = 0; j < stonesMat[i].length; j++) {
+                    if (gameManager.getStoneMat()[i][j] == 1) {
+                        stonesMat[i][j].setVisibility(View.VISIBLE);
+                    } else {
+                        stonesMat[i][j].setVisibility(View.INVISIBLE);
+                    }
                 }
             }
+            if(gameManager.getCollisions() != 0){
+                main_IMG_hearts[main_IMG_hearts.length - gameManager.getCollisions()].setVisibility(View.INVISIBLE);
+            }
         }
+    }
+
+    private void changeActivity(String status) {
+        Intent scoreIntent = new Intent(this, ScoreActivity.class);
+        scoreIntent.putExtra(ScoreActivity.KEY_STATUS, status);
+        startActivity(scoreIntent);
+        finish();
     }
 
     private void moveCarLeft() {
@@ -113,14 +132,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkCollisions(){
-        if(main_IMG_car_center.getVisibility() == View.VISIBLE && gameManager.getStoneMat()[4][1] == 1){
+        if(main_IMG_car_center.getVisibility() == View.VISIBLE && stonesMat[4][1].getVisibility() == View.VISIBLE){
             gameManager.checkCollision(true);
+            //toastVibrate.toastAndVibrate("Collision");
         }
-        else if(main_IMG_car_left.getVisibility() == View.VISIBLE && gameManager.getStoneMat()[4][0] == 1){
+        else if(main_IMG_car_left.getVisibility() == View.VISIBLE && stonesMat[4][0].getVisibility() == View.VISIBLE){
             gameManager.checkCollision(true);
+            gameManager.checkCollision(true);
+            //toastVibrate.toastAndVibrate("Collision");
         }
-        else if(main_IMG_car_right.getVisibility() == View.VISIBLE && gameManager.getStoneMat()[4][2] == 1){
+        else if(main_IMG_car_right.getVisibility() == View.VISIBLE && stonesMat[4][2].getVisibility() == View.VISIBLE){
             gameManager.checkCollision(true);
+            gameManager.checkCollision(true);
+            //toastVibrate.toastAndVibrate("Collision");
         }
     }
 

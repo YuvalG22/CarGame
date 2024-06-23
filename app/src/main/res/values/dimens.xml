@@ -8,4 +8,5 @@
     <dimen name="car_margin_bottom">90dp</dimen>
     <dimen name="margin_top_stone">60dp</dimen>
     <dimen name="margin_car_bottom">185dp</dimen>
+    <dimen name="score_large">50sp</dimen>
 </resources>
