@@ -38,7 +38,6 @@
             android:layout_weight="1"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/heart" />
-
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -46,45 +45,45 @@
         android:layout_height="450dp"
         android:orientation="vertical"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="@dimen/stone_margin_start"
         android:layout_marginTop="@dimen/margin_top_stone">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/main_IMG_stone_left1"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/width_stone"
+            android:layout_height="@dimen/height_stone"
             android:layout_centerInParent="true"
             android:layout_weight="1"
             app:srcCompat="@drawable/stone" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/main_IMG_stone_left2"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/width_stone"
+            android:layout_height="@dimen/height_stone"
             android:layout_centerInParent="true"
             android:layout_weight="1"
             app:srcCompat="@drawable/stone" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/main_IMG_stone_left3"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/width_stone"
+            android:layout_height="@dimen/height_stone"
             android:layout_centerInParent="true"
             android:layout_weight="1"
             app:srcCompat="@drawable/stone" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/main_IMG_stone_left4"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/width_stone"
+            android:layout_height="@dimen/height_stone"
             android:layout_centerInParent="true"
             android:layout_weight="1"
             app:srcCompat="@drawable/stone" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/main_IMG_stone_left5"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/width_stone"
+            android:layout_height="@dimen/height_stone"
             android:layout_centerInParent="true"
             android:layout_weight="1"
             app:srcCompat="@drawable/stone" />
@@ -95,45 +94,94 @@
         android:layout_width="wrap_content"
         android:layout_height="450dp"
         android:orientation="vertical"
-        android:layout_marginStart="140dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="@dimen/margin_top_stone">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/main_IMG_stone_leftCenter1"
+            android:layout_width="@dimen/width_stone"
+            android:layout_height="@dimen/height_stone"
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/stone" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/main_IMG_stone_leftCenter2"
+            android:layout_width="@dimen/width_stone"
+            android:layout_height="@dimen/height_stone"
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/stone" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/main_IMG_stone_leftCenter3"
+            android:layout_width="@dimen/width_stone"
+            android:layout_height="@dimen/height_stone"
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/stone" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/main_IMG_stone_leftCenter4"
+            android:layout_width="@dimen/width_stone"
+            android:layout_height="@dimen/height_stone"
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/stone" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/main_IMG_stone_leftCenter5"
+            android:layout_width="@dimen/width_stone"
+            android:layout_height="@dimen/height_stone"
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/stone" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="450dp"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/margin_top_stone">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/main_IMG_stone_center1"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/width_stone"
+            android:layout_height="@dimen/height_stone"
             android:layout_centerInParent="true"
             android:layout_weight="1"
             app:srcCompat="@drawable/stone" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/main_IMG_stone_center2"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/width_stone"
+            android:layout_height="@dimen/height_stone"
             android:layout_centerInParent="true"
             android:layout_weight="1"
             app:srcCompat="@drawable/stone" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/main_IMG_stone_center3"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/width_stone"
+            android:layout_height="@dimen/height_stone"
             android:layout_centerInParent="true"
             android:layout_weight="1"
             app:srcCompat="@drawable/stone" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/main_IMG_stone_center4"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/width_stone"
+            android:layout_height="@dimen/height_stone"
             android:layout_centerInParent="true"
             android:layout_weight="1"
             app:srcCompat="@drawable/stone" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/main_IMG_stone_center5"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/width_stone"
+            android:layout_height="@dimen/height_stone"
             android:layout_centerInParent="true"
             android:layout_weight="1"
             app:srcCompat="@drawable/stone" />
@@ -144,52 +192,98 @@
         android:layout_width="wrap_content"
         android:layout_height="450dp"
         android:orientation="vertical"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="256dp"
         android:layout_marginTop="@dimen/margin_top_stone">
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/main_IMG_stone_right1"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:id="@+id/main_IMG_stone_rightCenter1"
+            android:layout_width="@dimen/width_stone"
+            android:layout_height="@dimen/height_stone"
             android:layout_centerInParent="true"
             android:layout_weight="1"
             app:srcCompat="@drawable/stone" />
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/main_IMG_stone_right2"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:id="@+id/main_IMG_stone_rightCenter2"
+            android:layout_width="@dimen/width_stone"
+            android:layout_height="@dimen/height_stone"
             android:layout_centerInParent="true"
             android:layout_weight="1"
             app:srcCompat="@drawable/stone" />
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/main_IMG_stone_right3"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:id="@+id/main_IMG_stone_rightCenter3"
+            android:layout_width="@dimen/width_stone"
+            android:layout_height="@dimen/height_stone"
             android:layout_centerInParent="true"
             android:layout_weight="1"
             app:srcCompat="@drawable/stone" />
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/main_IMG_stone_right4"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:id="@+id/main_IMG_stone_rightCenter4"
+            android:layout_width="@dimen/width_stone"
+            android:layout_height="@dimen/height_stone"
             android:layout_centerInParent="true"
             android:layout_weight="1"
             app:srcCompat="@drawable/stone" />
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/main_IMG_stone_right5"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:id="@+id/main_IMG_stone_rightCenter5"
+            android:layout_width="@dimen/width_stone"
+            android:layout_height="@dimen/height_stone"
             android:layout_centerInParent="true"
             android:layout_weight="1"
             app:srcCompat="@drawable/stone" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="450dp"
+        android:orientation="vertical"
+        android:layout_marginStart="338dp"
+        android:layout_marginTop="@dimen/margin_top_stone">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/main_IMG_stone_right1"
+            android:layout_width="@dimen/width_stone"
+            android:layout_height="@dimen/height_stone"
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/stone" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/main_IMG_stone_right2"
+            android:layout_width="@dimen/width_stone"
+            android:layout_height="@dimen/height_stone"
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/stone" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/main_IMG_stone_right3"
+            android:layout_width="@dimen/width_stone"
+            android:layout_height="@dimen/height_stone"
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/stone" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/main_IMG_stone_right4"
+            android:layout_width="@dimen/width_stone"
+            android:layout_height="@dimen/height_stone"
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/stone" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/main_IMG_stone_right5"
+            android:layout_width="@dimen/width_stone"
+            android:layout_height="@dimen/height_stone"
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/stone" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -199,30 +293,40 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/main_IMG_car_left"
-        android:layout_width="50dp"
-        android:layout_height="100dp"
-        android:layout_centerInParent="true"
-        android:layout_alignParentBottom="true"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
         android:rotation="180"
         android:layout_weight="1"
         app:srcCompat="@drawable/car" />
 
         <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/main_IMG_car_leftCenter"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:rotation="180"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/car" />
+
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/main_IMG_car_center"
-            android:layout_width="50dp"
-            android:layout_height="100dp"
-            android:layout_centerInParent="true"
-            android:layout_alignParentBottom="true"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:rotation="180"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/car" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/main_IMG_car_rightCenter"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
             android:rotation="180"
             android:layout_weight="1"
             app:srcCompat="@drawable/car" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/main_IMG_car_right"
-            android:layout_width="50dp"
-            android:layout_height="100dp"
-            android:layout_centerInParent="true"
-            android:layout_alignParentBottom="true"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
             android:rotation="180"
             android:layout_weight="1"
             app:srcCompat="@drawable/car" />

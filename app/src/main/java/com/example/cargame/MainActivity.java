@@ -21,25 +21,8 @@ public class MainActivity extends AppCompatActivity {
     private static final long DELAY = 1000L;
     private FloatingActionButton main_BTN_arrow_left;
     private FloatingActionButton main_BTN_arrow_right;
-    private AppCompatImageView main_IMG_car_left;
-    private AppCompatImageView main_IMG_car_center;
-    private AppCompatImageView main_IMG_car_right;
+    private AppCompatImageView[] main_IMG_cars;
     private AppCompatImageView[][] stonesMat;
-    private AppCompatImageView main_IMG_stone_left1;
-    private AppCompatImageView main_IMG_stone_left2;
-    private AppCompatImageView main_IMG_stone_left3;
-    private AppCompatImageView main_IMG_stone_left4;
-    private AppCompatImageView main_IMG_stone_left5;
-    private AppCompatImageView main_IMG_stone_right1;
-    private AppCompatImageView main_IMG_stone_right2;
-    private AppCompatImageView main_IMG_stone_right3;
-    private AppCompatImageView main_IMG_stone_right4;
-    private AppCompatImageView main_IMG_stone_right5;
-    private AppCompatImageView main_IMG_stone_center1;
-    private AppCompatImageView main_IMG_stone_center2;
-    private AppCompatImageView main_IMG_stone_center3;
-    private AppCompatImageView main_IMG_stone_center4;
-    private AppCompatImageView main_IMG_stone_center5;
     private AppCompatImageView[] main_IMG_hearts;
     private GameManager gameManager;
     private ToastVibrate toastVibrate;
@@ -68,9 +51,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initViews(){
-        main_IMG_car_left.setVisibility(View.INVISIBLE);
-        main_IMG_car_center.setVisibility(View.VISIBLE);
-        main_IMG_car_right.setVisibility(View.INVISIBLE);
+        main_IMG_cars[0].setVisibility(View.INVISIBLE);
+        main_IMG_cars[1].setVisibility(View.INVISIBLE);
+        main_IMG_cars[2].setVisibility(View.VISIBLE);
+        main_IMG_cars[3].setVisibility(View.INVISIBLE);
+        main_IMG_cars[4].setVisibility(View.INVISIBLE);
         for(int i = 0; i < stonesMat.length; i++){
             for(int j = 0; j < stonesMat[i].length; j++) {
                 stonesMat[i][j].setVisibility(View.INVISIBLE);
@@ -108,38 +93,62 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void moveCarLeft() {
-        if(main_IMG_car_center.getVisibility() == View.VISIBLE){
-            main_IMG_car_center.setVisibility(View.INVISIBLE);
-            main_IMG_car_left.setVisibility(View.VISIBLE);
+        if(main_IMG_cars[2].getVisibility() == View.VISIBLE){
+            main_IMG_cars[2].setVisibility(View.INVISIBLE);
+            main_IMG_cars[1].setVisibility(View.VISIBLE);
         }
-        else if(main_IMG_car_right.getVisibility() == View.VISIBLE) {
-            main_IMG_car_center.setVisibility(View.VISIBLE);
-            main_IMG_car_right.setVisibility(View.INVISIBLE);
+        else if(main_IMG_cars[1].getVisibility() == View.VISIBLE){
+            main_IMG_cars[1].setVisibility(View.INVISIBLE);
+            main_IMG_cars[0].setVisibility(View.VISIBLE);
+        }
+        else if(main_IMG_cars[3].getVisibility() == View.VISIBLE) {
+            main_IMG_cars[3].setVisibility(View.INVISIBLE);
+            main_IMG_cars[2].setVisibility(View.VISIBLE);
+        }
+        else if(main_IMG_cars[4].getVisibility() == View.VISIBLE) {
+            main_IMG_cars[4].setVisibility(View.INVISIBLE);
+            main_IMG_cars[3].setVisibility(View.VISIBLE);
         }
     }
 
     private void moveCarRight(){
-        if(main_IMG_car_center.getVisibility() == View.VISIBLE){
-            main_IMG_car_center.setVisibility(View.INVISIBLE);
-            main_IMG_car_right.setVisibility(View.VISIBLE);
+        if(main_IMG_cars[2].getVisibility() == View.VISIBLE){
+            main_IMG_cars[2].setVisibility(View.INVISIBLE);
+            main_IMG_cars[3].setVisibility(View.VISIBLE);
         }
-        else if(main_IMG_car_left.getVisibility() == View.VISIBLE){
-            main_IMG_car_center.setVisibility(View.VISIBLE);
-            main_IMG_car_left.setVisibility(View.INVISIBLE);
+        else if(main_IMG_cars[1].getVisibility() == View.VISIBLE){
+            main_IMG_cars[1].setVisibility(View.INVISIBLE);
+            main_IMG_cars[2].setVisibility(View.VISIBLE);
+        }
+        else if(main_IMG_cars[3].getVisibility() == View.VISIBLE) {
+            main_IMG_cars[3].setVisibility(View.INVISIBLE);
+            main_IMG_cars[4].setVisibility(View.VISIBLE);
+        }
+        else if(main_IMG_cars[0].getVisibility() == View.VISIBLE) {
+            main_IMG_cars[0].setVisibility(View.INVISIBLE);
+            main_IMG_cars[1].setVisibility(View.VISIBLE);
         }
     }
 
     private void checkCollisions(){
         boolean collisionDetected = false;
-        if(main_IMG_car_center.getVisibility() == View.VISIBLE && stonesMat[3][1].getVisibility() == View.VISIBLE){
+        if(main_IMG_cars[2].getVisibility() == View.VISIBLE && stonesMat[3][2].getVisibility() == View.VISIBLE){
             collisionDetected = true;
             toastVibrate.toastAndVibrate("Collision!");
         }
-        else if(main_IMG_car_left.getVisibility() == View.VISIBLE && stonesMat[3][0].getVisibility() == View.VISIBLE){
+        else if(main_IMG_cars[0].getVisibility() == View.VISIBLE && stonesMat[3][0].getVisibility() == View.VISIBLE){
             collisionDetected = true;
             toastVibrate.toastAndVibrate("Collision!");
         }
-        else if(main_IMG_car_right.getVisibility() == View.VISIBLE && stonesMat[3][2].getVisibility() == View.VISIBLE){
+        else if(main_IMG_cars[4].getVisibility() == View.VISIBLE && stonesMat[3][4].getVisibility() == View.VISIBLE){
+            collisionDetected = true;
+            toastVibrate.toastAndVibrate("Collision!");
+        }
+        else if(main_IMG_cars[1].getVisibility() == View.VISIBLE && stonesMat[3][1].getVisibility() == View.VISIBLE){
+            collisionDetected = true;
+            toastVibrate.toastAndVibrate("Collision!");
+        }
+        else if(main_IMG_cars[3].getVisibility() == View.VISIBLE && stonesMat[3][3].getVisibility() == View.VISIBLE){
             collisionDetected = true;
             toastVibrate.toastAndVibrate("Collision!");
         }
@@ -161,15 +170,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void findViews(){
         main_IMG_hearts = new AppCompatImageView[]{findViewById(R.id.main_IMG_heart1), findViewById(R.id.main_IMG_heart2), findViewById(R.id.main_IMG_heart3)};
-        stonesMat = new AppCompatImageView[][]{{findViewById(R.id.main_IMG_stone_left1), findViewById(R.id.main_IMG_stone_center1), findViewById(R.id.main_IMG_stone_right1)},
-                                               {findViewById(R.id.main_IMG_stone_left2), findViewById(R.id.main_IMG_stone_center2), findViewById(R.id.main_IMG_stone_right2)},
-                                               {findViewById(R.id.main_IMG_stone_left3), findViewById(R.id.main_IMG_stone_center3), findViewById(R.id.main_IMG_stone_right3)},
-                                               {findViewById(R.id.main_IMG_stone_left4), findViewById(R.id.main_IMG_stone_center4), findViewById(R.id.main_IMG_stone_right4)},
-                                               {findViewById(R.id.main_IMG_stone_left5), findViewById(R.id.main_IMG_stone_center5), findViewById(R.id.main_IMG_stone_right5)}};
+        stonesMat = new AppCompatImageView[][]{{findViewById(R.id.main_IMG_stone_left1), findViewById(R.id.main_IMG_stone_leftCenter1), findViewById(R.id.main_IMG_stone_center1), findViewById(R.id.main_IMG_stone_rightCenter1), findViewById(R.id.main_IMG_stone_right1)},
+                                               {findViewById(R.id.main_IMG_stone_left2), findViewById(R.id.main_IMG_stone_leftCenter2), findViewById(R.id.main_IMG_stone_center2), findViewById(R.id.main_IMG_stone_rightCenter2), findViewById(R.id.main_IMG_stone_right2)},
+                                               {findViewById(R.id.main_IMG_stone_left3), findViewById(R.id.main_IMG_stone_leftCenter3), findViewById(R.id.main_IMG_stone_center3), findViewById(R.id.main_IMG_stone_rightCenter3), findViewById(R.id.main_IMG_stone_right3)},
+                                               {findViewById(R.id.main_IMG_stone_left4), findViewById(R.id.main_IMG_stone_leftCenter4), findViewById(R.id.main_IMG_stone_center4), findViewById(R.id.main_IMG_stone_rightCenter4), findViewById(R.id.main_IMG_stone_right4)},
+                                               {findViewById(R.id.main_IMG_stone_left5), findViewById(R.id.main_IMG_stone_leftCenter5), findViewById(R.id.main_IMG_stone_center5), findViewById(R.id.main_IMG_stone_rightCenter5), findViewById(R.id.main_IMG_stone_right5)}};
+        main_IMG_cars = new AppCompatImageView[]{findViewById(R.id.main_IMG_car_left), findViewById(R.id.main_IMG_car_leftCenter), findViewById(R.id.main_IMG_car_center), findViewById(R.id.main_IMG_car_rightCenter), findViewById(R.id.main_IMG_car_right)};
         main_BTN_arrow_right = findViewById(R.id.main_BTN_arrow_right);
         main_BTN_arrow_left = findViewById(R.id.main_BTN_arrow_left);
-        main_IMG_car_center = findViewById(R.id.main_IMG_car_center);
-        main_IMG_car_right = findViewById(R.id.main_IMG_car_right);
-        main_IMG_car_left = findViewById(R.id.main_IMG_car_left);
     }
 }

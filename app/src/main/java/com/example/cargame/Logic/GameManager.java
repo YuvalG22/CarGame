@@ -5,11 +5,11 @@ import java.util.Random;
 public class GameManager {
     private int lifeCount;
     private int collisions = 0;
-    private int [][] stoneMat = new int[][]{{0,0,0},
-                                            {0,0,0},
-                                            {0,0,0},
-                                            {0,0,0},
-                                            {0,0,0}};
+    private int [][] stoneMat = new int[][]{{0,0,0,0,0},
+                                            {0,0,0,0,0},
+                                            {0,0,0,0,0},
+                                            {0,0,0,0,0},
+                                            {0,0,0,0,0}};
     private Random random;
     public GameManager(int lifeCount) {
         this.lifeCount = lifeCount;
@@ -37,7 +37,7 @@ public class GameManager {
             stoneMat[0][j] = 0;
         }
         random = new Random();
-        int randomStone = random.nextInt(3);
+        int randomStone = random.nextInt(5);
         stoneMat[0][randomStone] = 1;
     }
 
