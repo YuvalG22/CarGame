@@ -13,6 +13,7 @@ import com.google.android.material.textview.MaterialTextView;
 
 public class ScoreActivity extends AppCompatActivity {
     private MaterialTextView score_LBL_status;
+    private MaterialTextView score_LBL_coins;
     public static final String KEY_STATUS = "KEY_STATUS";
 
     @Override
@@ -20,21 +21,20 @@ public class ScoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //EdgeToEdge.enable(this);
         setContentView(R.layout.activity_score);
-        //ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-        //Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-        //  v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-        //return insets;
-        //});
         findViews();
         initViews();
     }
     private void initViews() {
         Intent previousActivity = getIntent();
-        String status = previousActivity.getStringExtra(KEY_STATUS);
+        Bundle extras = previousActivity.getExtras();
+        String status = extras.getString(KEY_STATUS);
+        int coins = extras.getInt("COINS");
         score_LBL_status.setText(status);
+        score_LBL_coins.setText("Coins: " + String.valueOf(coins));
     }
 
     private void findViews(){
         score_LBL_status = findViewById(R.id.score_LBL_status);
+        score_LBL_coins = findViewById(R.id.score_LBL_coins);
     }
 }
