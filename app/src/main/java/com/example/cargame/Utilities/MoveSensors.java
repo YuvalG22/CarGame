@@ -39,16 +39,16 @@ public class MoveSensors {
     }
 
     private void calculateMove(float x) {
-        if (System.currentTimeMillis() - timestamp > 500) {
+        if (System.currentTimeMillis() - timestamp > 200) {
             timestamp = System.currentTimeMillis();
             if (x > 1.0) {
                 if (moveCallback != null) {
-                    moveCallback.moveXRight();
+                    moveCallback.moveXLeft();
                 }
             }
             if (x < -1.0) {
                 if (moveCallback != null) {
-                    moveCallback.moveXLeft();
+                    moveCallback.moveXRight();
                 }
             }
         }
