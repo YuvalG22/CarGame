@@ -1,6 +1,9 @@
 package com.example.cargame;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -8,7 +11,9 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.app.ActivityCompat;
 
+import com.example.cargame.Interfaces.LocationCallack;
 import com.example.cargame.Interfaces.MoveCallback;
 import com.example.cargame.Logic.GameManager;
 import com.example.cargame.Logic.Record;
@@ -17,6 +22,10 @@ import com.example.cargame.Utilities.MoveSensors;
 import com.example.cargame.Utilities.SharedPreferencesManager;
 import com.example.cargame.Utilities.SoundPlayer2;
 import com.example.cargame.Utilities.ToastVibrate;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.gson.Gson;
 
@@ -33,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private AppCompatImageView[][] stonesMat;
     private AppCompatImageView[][] coinsMat;
     private AppCompatImageView[] main_IMG_hearts;
+    private FusedLocationProviderClient fusedLocationProviderClient;
     MoveSensors moveSensors;
     private Gson gson;
     private GameManager gameManager;
@@ -62,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         gson = new Gson();
         Intent previousActivity = getIntent();
         Bundle extras = previousActivity.getExtras();
@@ -234,7 +245,26 @@ public class MainActivity extends AppCompatActivity {
     private void gameOver(){
         isRunning = false;
         handler.removeCallbacks(runnable);
-        String name = "Yuval";
+        getCurrentLocation(new LocationCallack() {
+            @Override
+            public void onLocationResult(double latitude, double longitude) {
+                String name = "Yuval";
+                int score = gameManager.getCoinsCount();
+                Record record = new Record(name, score, latitude, longitude);
+                String recordAsJson = SharedPreferencesManager.getInstance().getString("records", "");
+                RecordsList recordsList;
+                if(!recordAsJson.isEmpty()) {
+                    recordsList = gson.fromJson(recordAsJson, RecordsList.class);
+                }
+                else{
+                    recordsList = new RecordsList();
+                }
+                recordsList.addRecord(record);
+                String toJson = gson.toJson(recordsList);
+                SharedPreferencesManager.getInstance().putString("records", toJson);
+            }
+        });
+        /*String name = "Yuval";
         int score = gameManager.getCoinsCount();
         Record record = new Record(name, score);
         String recordAsJson = SharedPreferencesManager.getInstance().getString("records", "");
@@ -247,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
         }
         recordsList.addRecord(record);
         String toJson = gson.toJson(recordsList);
-        SharedPreferencesManager.getInstance().putString("records", toJson);
+        SharedPreferencesManager.getInstance().putString("records", toJson);*/
     }
 
     private void findViews(){
@@ -301,5 +331,27 @@ public class MainActivity extends AppCompatActivity {
         if (soundPlayer != null) {
             soundPlayer.release();
         }
+    }
+
+    public void getCurrentLocation(LocationCallack callack) {
+        if (ActivityCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                    1);
+            return;
+        }
+        fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null) {
+                    LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                    if(callack != null){
+                        callack.onLocationResult(currentLocation.latitude, currentLocation.longitude);
+                    }
+                }
+            }
+        });
     }
 }

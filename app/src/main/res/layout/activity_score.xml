@@ -31,4 +31,20 @@
         android:textStyle="bold"
         android:layout_below="@id/score_LBL_status">
     </com.google.android.material.textview.MaterialTextView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/main_BTN_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
+        android:backgroundTint="@color/dark_orange"
+        android:textColor="@color/white"
+        android:text="Back to Menu"
+        android:textSize="18sp"
+        android:fontFamily="monospace"
+        android:textStyle="bold"/>
+
+
 </RelativeLayout>

@@ -1,5 +1,6 @@
 package com.example.cargame;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,15 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.cargame.Interfaces.ListItemClicked;
+import com.example.cargame.Interfaces.LocationCallack;
+import com.example.cargame.Interfaces.LocationCallack;
 import com.example.cargame.Logic.RecordsList;
 import com.example.cargame.Utilities.SharedPreferencesManager;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.gson.Gson;
 
 public class FragmentList extends Fragment {
     private MaterialTextView[] main_LBL_records;
-    private ListItemClicked listItemClicked;
+    private MaterialButton main_BTN_back;
+    private LocationCallack listItemClicked;
     private RecordsList recordsList;
     private Gson gson;
 
@@ -40,6 +44,8 @@ public class FragmentList extends Fragment {
     }
 
     private void initViews() {
+        main_BTN_back.setOnClickListener(v -> onBack());
+
         String recordAsJson = SharedPreferencesManager.getInstance().getString("records", "");
         if(!recordAsJson.isEmpty()){
             recordsList = gson.fromJson(recordAsJson, RecordsList.class);
@@ -54,9 +60,15 @@ public class FragmentList extends Fragment {
         }
     }
 
+    private void onBack() {
+        Intent menu = new Intent(requireActivity(), MenuActivity.class);
+        startActivity(menu);
+        getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+    }
+
     private void itemClicked(double lat, double lon) {
         if(listItemClicked != null) {
-            listItemClicked.listItemClicked(lat, lon);
+            listItemClicked.onLocationResult(lat, lon);
         }
     }
 
@@ -64,9 +76,11 @@ public class FragmentList extends Fragment {
         main_LBL_records = new MaterialTextView[]{v.findViewById(R.id.main_LBL_record1), v.findViewById(R.id.main_LBL_record2), v.findViewById(R.id.main_LBL_record3),
                                                   v.findViewById(R.id.main_LBL_record4), v.findViewById(R.id.main_LBL_record5), v.findViewById(R.id.main_LBL_record6),
                                                   v.findViewById(R.id.main_LBL_record7), v.findViewById(R.id.main_LBL_record8), v.findViewById(R.id.main_LBL_record9), v.findViewById(R.id.main_LBL_record10)};
+
+        main_BTN_back = v.findViewById(R.id.main_BTN_back);
     }
 
-    public void setListItemClicked(ListItemClicked listItemClicked) {
+    public void setListItemClicked(LocationCallack listItemClicked) {
         this.listItemClicked = listItemClicked;
     }
 }

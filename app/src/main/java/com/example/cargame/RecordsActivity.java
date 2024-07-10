@@ -9,7 +9,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.cargame.Interfaces.ListItemClicked;
+import com.example.cargame.Interfaces.LocationCallack;
 import com.example.cargame.Logic.RecordsList;
 import com.example.cargame.Utilities.SharedPreferencesManager;
 import com.google.android.material.textview.MaterialTextView;
@@ -31,9 +31,9 @@ public class RecordsActivity extends AppCompatActivity {
 
     private void initViews() {
         fragmentList = new FragmentList();
-        fragmentList.setListItemClicked(new ListItemClicked() {
+        fragmentList.setListItemClicked(new LocationCallack() {
             @Override
-            public void listItemClicked(double lat, double lon) {
+            public void onLocationResult(double lat, double lon) {
                 mapFragment.zoom(lat, lon);
             }
         });

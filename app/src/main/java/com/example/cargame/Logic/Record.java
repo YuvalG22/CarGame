@@ -8,9 +8,11 @@ public class Record {
     private double lat;
     private double lon;
 
-    public Record(String name, int score){
+    public Record(String name, int score, double lat, double lon){
         this.name = name;
         this.score = score;
+        this.lat = lat;
+        this.lon = lon;
     }
 
     public String getName() {

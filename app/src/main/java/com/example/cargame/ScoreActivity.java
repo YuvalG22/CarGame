@@ -9,11 +9,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 
 public class ScoreActivity extends AppCompatActivity {
     private MaterialTextView score_LBL_status;
     private MaterialTextView score_LBL_coins;
+    private MaterialButton main_BTN_back;
     public static final String KEY_STATUS = "KEY_STATUS";
 
     @Override
@@ -25,6 +27,7 @@ public class ScoreActivity extends AppCompatActivity {
         initViews();
     }
     private void initViews() {
+        main_BTN_back.setOnClickListener(v -> onBack());
         Intent previousActivity = getIntent();
         Bundle extras = previousActivity.getExtras();
         String status = extras.getString(KEY_STATUS);
@@ -33,8 +36,15 @@ public class ScoreActivity extends AppCompatActivity {
         score_LBL_coins.setText("Coins: " + String.valueOf(coins));
     }
 
+    private void onBack() {
+        Intent menu = new Intent(this, MenuActivity.class);
+        startActivity(menu);
+        finish();
+    }
+
     private void findViews(){
         score_LBL_status = findViewById(R.id.score_LBL_status);
         score_LBL_coins = findViewById(R.id.score_LBL_coins);
+        main_BTN_back = findViewById(R.id.main_BTN_back);
     }
 }
