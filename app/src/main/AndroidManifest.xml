@@ -37,17 +37,13 @@
 
         <activity
             android:name=".MenuActivity"
-            android:exported="true"
-            android:label="@string/title_activity_maps">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".RecordsActivity2"
-            android:exported="false" />
         <activity
             android:name=".RecordsActivity"
             android:exported="false" />
